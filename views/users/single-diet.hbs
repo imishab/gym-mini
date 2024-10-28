@@ -1,0 +1,64 @@
+<div class="page-content-wrapper mt-5 py-3"><br><br>
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card product-details-card mb-3">
+                    <div class="card-body">
+                        <div class="product-gallery-wrapper">
+                            <div class="product-gallery"><a href="/images/diet-images/{{diet._id}}.png"><img
+                                        class="rounded" src="/images/diet-images/{{diet._id}}.png" alt=""
+                                        width="100%"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card product-details-card mb-3 direction-rtl">
+                    <div class="card-body">
+                        <h3>{{diet.title}}</h3>
+                        <h5>{{diet.Price}}/-</h5>
+                        <p><b>Location : </b>
+                            {{diet .baddress}}
+                        </p>
+
+                        {{#if content}}
+                        <p>Video ID: {{content.videoId}}</p>
+                        <p>Content Description: {{content.link}}</p>
+                        <!-- Add more content fields as necessary -->
+                        {{else}}
+                        <p>No content available for this diet.</p>
+                        {{/if}}
+
+                        <h5>Description</h5>
+                        <p>{{diet.desc}}</p>
+
+
+
+                        <div class="input-group">
+                            <button class="btn btn-dark w-100 mt-4" onclick="buyNow('{{diet._id}}')">Book
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card product-details-card mb-3 direction-rtl">
+                    <div class="card-body">
+                        <h5>Amenities</h5>
+                        <p>{{{diet.amenities}}}</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<script>
+    function buyNow(dietId) {
+        window.location.href = '/place-order/' + dietId;
+    }
+
+</script>

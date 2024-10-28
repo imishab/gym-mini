@@ -1,0 +1,40 @@
+<header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+
+        <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="assets/img/logo.png" alt=""> -->
+            <h1 class="sitename">Fitness Center</h1>
+            <span>.</span>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="/" class="active">Home<br></a></li>
+                <li><a href="#about">About</a></li>
+
+
+                <li><a href="#contact">Contact</a></li>
+                <li class="dropdown"><a href="#"><span>More</span> <i
+                            class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <ul>
+                        <li><a href="/tips">My Additional Tips</a></li>
+                        <li><a href="/orders">My Diets</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+        {{#if user}}
+        <div>
+            <a class="btn-getstarted" href="/profile">Hi, {{user.Fname}} {{user.Lname}}</a>
+            <a class="btn-getstarted" href="/signout">logout</a>
+        </div>
+        {{else}}
+        <div>
+            <a class="btn-getstarted" href="/signin">Login</a>
+            <a class="btn-getstarted" href="/expert/signin">Login as expert</a>
+        </div>
+        {{/if}}
+    </div>
+</header>

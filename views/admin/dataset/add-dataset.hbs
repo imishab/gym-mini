@@ -1,0 +1,116 @@
+<style>
+    label {
+        margin-bottom: -15px;
+    }
+
+    input {
+        margin-bottom: 10px;
+    }
+
+    .text-danger {
+        margin-top: -5px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<section>
+    <div class="container mt-4">
+        <h4 class="mb-4">Add Data Set</h4>
+        <div class="card p-4 shadow">
+            <form action="/admin/add-dataset" method="post" class="input-container">
+
+                <label for="first name" class=" right-container__label">Name</label>
+                <input type="text" class="form-control right-container__input" name="Name" placeholder="Data set name">
+
+                <div class="form-group">
+                    <label class="form-label" for="exampleInputText">Select Age</label>
+                    <select class="form-control" name="age" aria-label="Default select example">
+                        <option selected>Select Age Limit</option>
+                        <option value="10-15">10-15</option>
+                        <option value="15-20">15-20</option>
+                        <option value="20-25">20-25</option>
+                        <option value="25-30">25-30</option>
+                        <option value="30-40">30-40</option>
+                        <option value="40-50">40-50</option>
+                        <option value="50-60">50-60</option>
+                        <option value="Above 60">Above 60</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="exampleInputText">Select Weight</label>
+                    <select class="form-control" name="weight" aria-label="Default select example">
+                        <option selected>Select Weight Limit</option>
+                        <option value="50-100">50-100</option>
+                        <option value="100-130">100-130</option>
+                        <option value="130-150">130-150</option>
+                        <option value="150-170">150-170</option>
+                        <option value="170-200">170-200</option>
+                        <option value="Above 200">Above 200 </option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="exampleInputText">Select Type</label>
+                    <select class="form-control" name="type" aria-label="Default select example">
+                        <option selected>Select Type</option>
+                        <option value="Below Normal">Below Normal</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Avarage">Avarage</option>
+                        <option value="Above Avarage">Above Avarage</option>
+                        <option value="High">High</option>
+                        <option value="Above High">Above High</option>
+
+                    </select>
+                </div>
+
+
+                <label for="first name" class=" right-container__label">Description</label>
+                <textarea type="text" class="form-control right-container__input" name="Desc"
+                    placeholder="Enter Type"></textarea>
+                <br>
+
+                <button type="submit" class="btn btn-primary mt-2">Create</button>
+                <a href="/admin/all-datasets" class="btn btn-dark mt-2">Back</a>
+
+            </form>
+        </div>
+        <br><br>
+    </div>
+</section>
+
+
+<script>
+    // Get the form element
+    const form = document.getElementById('tutorForm');
+
+    // Handle form submission event
+    form.addEventListener('submit', function (event) {
+        // Prevent default form submission behavior
+        event.preventDefault();
+
+        // Collect form data
+        const tutorName = document.querySelector('input[name="Tutorname"]').value;
+        const email = document.querySelector('input[name="Email"]').value;
+        const phone = document.querySelector('input[name="Phone"]').value;
+        const password = document.querySelector('input[name="Password"]').value;
+
+        // Check if all required fields are filled (simple validation)
+        if (tutorName && email && phone && password) {
+            // First, submit the form via AJAX or manually
+            form.submit(); // This submits the form to the server
+
+            // Now, send the WhatsApp message after form submission
+            const message = `Hi ${tutorName}, your email is ${email} and your password is ${password}. You can log in with these details.`;
+            const encodedMessage = encodeURIComponent(message);
+            const waLink = `https://wa.me/${phone}?text=${encodedMessage}`;
+
+            // Open WhatsApp link
+            window.open(waLink, '_blank');
+        } else {
+            alert('Please fill all the required fields!');
+        }
+    });
+</script>

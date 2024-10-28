@@ -1,0 +1,58 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Manage DataSet</h1>
+
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="d-flex justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">All DataSets</h6>
+                <a href="/admin/add-dataset" class="btn btn-dark">+ Add New Dataset</a>
+
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Weight</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Manage</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{#each datasets}}
+                        <tr>
+                            <td>{{this.Name}}</td>
+                            <td>{{this.age}}</td>
+                            <td>{{this.weight}}</td>
+                            <td>{{this.type}}</td>
+                            <td>{{this.Desc}}</td>
+
+                            <td>
+                                <div class="d-flex gap-2">
+
+                                    <a href="/admin/delete-dataset/{{this._id}}" type="submit"
+                                        class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->

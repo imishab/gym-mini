@@ -1,0 +1,72 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Manage Experts</h1>
+
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="d-flex justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">All Experts</h6>
+                <a href="/admin/add-tutor" class="btn btn-dark">+ Add New Tutor</a>
+
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>Pincode</th>
+                            <th>Manage</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{#each experts}}
+                        <tr>
+                            <td>{{this.Name}}</td>
+                            <td>{{this.Email}}</td>
+                            <td>{{this.Phone}}</td>
+                            <td>{{this.Address}}</td>
+                            <td>{{this.City}}</td>
+                            <td>{{this.Pincode}}</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    {{#if this.approved}}
+                                    <span class="badge bg-success p-2">Approved</span>
+                                    {{else if this.rejected}}
+                                    <span class="badge bg-danger p-2">Rejected</span>
+                                    {{else}}
+                                    <form action="/admin/approve-expert/{{this._id}}" method="POST">
+                                        <button type="submit" class="btn btn-success btn-sm"><i
+                                                class="bi bi-check2"></i></button>
+                                    </form>
+                                    <form action="/admin/reject-expert/{{this._id}}" method="POST">
+                                        <button type="submit" class="btn btn-dark btn-sm">X</button>
+                                    </form>
+                                    {{/if}}
+                                    <form action="/admin/delete-expert/{{this._id}}" method="POST">
+                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                                class="bi bi-trash"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->

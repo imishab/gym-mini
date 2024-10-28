@@ -1,0 +1,216 @@
+<style>
+    .custum-file-upload {
+        height: 200px;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+        gap: 20px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #cacaca;
+        background-color: rgba(255, 255, 255, 1);
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0px 48px 35px -48px rgba(0, 0, 0, 0.1);
+    }
+
+    .custum-file-upload .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custum-file-upload .icon svg {
+        height: 80px;
+        fill: rgba(75, 85, 99, 1);
+    }
+
+    .custum-file-upload .text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custum-file-upload .text span {
+        font-weight: 400;
+        color: rgba(75, 85, 99, 1);
+    }
+
+    .custum-file-upload input {
+        display: none;
+    }
+</style>
+
+<main id="main" class="main">
+    <div class="container">
+
+        <div class="pagetitle">
+            <h1>Add Tips</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/expert">Home</a></li>
+                    <li class="breadcrumb-item">Tips</li>
+                    <li class="breadcrumb-item active">Add Tips</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <!-- Multi Columns Form -->
+                            <form id="addProductForm" action="/expert/add-tips" enctype="multipart/form-data"
+                                method="post">
+                                {{#if errorMessage}}
+                                <div class="alert alert-danger">{{errorMessage}}</div>
+                                {{/if}}
+
+                                {{#if errors.iname}}<div class="text-danger">{{errors.iname}}</div>{{/if}}
+
+                                <input type="hidden" name="date" id="datetime">
+                                <div class="row mb-3  mt-4">
+
+                                    <div class="col-12">
+                                        <label for="inputName5" class="form-label">Select User</label>
+                                        <select id="datasetSelect" class="form-select" name="userId"
+                                            aria-label="Default select example">
+                                            <option selected disabled>Select User</option>
+                                            {{#each orders}}
+                                            <option value="{{this.userId}}">{{this.user.Fname}} {{this.user.Lname}}
+                                            </option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <!-- Button to fetch details -->
+
+
+
+                                <!-- Rest of your form -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <label for="inputName5" class="form-label">Set Additional Tips</label>
+                                                <textarea type="text" class="form-control mb-3" name="tips"
+                                                    id="inputName5" required></textarea>
+                                            </div>
+
+
+                                            {{!-- <div class="col-lg-3">
+                                                <label for="inputName5" class="form-label">Per</label>
+                                                <select class="form-select mb-3" name="per"
+                                                    aria-label="Default select example" required>
+                                                    <option selected disabled>Per</option>
+                                                    <option value="kg">Kg</option>
+                                                    <option value="ltr">Ltr</option>
+                                                    <option value="box">Box</option>
+                                                    <option value="single">Single</option>
+
+                                                </select>
+                                            </div> --}}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mb-4 mt-4" style="float: inline-end;">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                    <a href="/expert" class="btn btn-danger">Cancel</a>
+                                </div>
+                        </div>
+                        </form>
+
+
+
+
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+</main><!-- End #main -->
+
+
+
+<script>
+    document.getElementById("fetchDetailsBtn").addEventListener("click", function () {
+        const datasetId = document.getElementById("datasetSelect").value;
+
+        if (!datasetId) {
+            alert("Please select an dataset");
+            return;
+        }
+
+        fetch(`/expert/get-dataset/${datasetId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("Name").value = data.Name || "N/A";
+                document.getElementById("age").value = data.age || "N/A";
+                document.getElementById("weight").value = data.weight || "0";
+                document.getElementById("type").value = data.type || "N/A";
+                document.getElementById("desc").value = data.desc || "N/A";
+
+                document.getElementById("datasetDetails").style.display = "block";
+
+                // Set max limit for product qty input based on dataset qty
+            })
+            .catch(error => {
+                console.error("Error fetching dataset details:", error);
+            });
+    });
+</script>
+
+<script>
+    document.getElementById("fetchContentDetailsBtn").addEventListener("click", function () {
+        const contentId = document.getElementById("contentSelect").value;
+
+        if (!contentId) {
+            alert("Please select an content");
+            return;
+        }
+
+        fetch(`/expert/get-content/${contentId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("name").value = data.name || "N/A";
+                document.getElementById("link").value = data.link || "N/A";
+
+            })
+            .catch(error => {
+                console.error("Error fetching content details:", error);
+            });
+    });
+</script>
+
+
+
+<script>
+    // Get current date and time
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    const hours = ((now.getHours() + 11) % 12 + 1).toString().padStart(2, '0'); // Convert to 12-hour format
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+
+    // Set default value to current date and time in 12-hour format with AM/PM
+    const defaultDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+    document.getElementById('datetime').value = defaultDateTime;
+</sc >

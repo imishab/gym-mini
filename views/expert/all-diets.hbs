@@ -1,0 +1,79 @@
+<div class="page-content-wrapper main-content mt-5">
+    <div class="container-md">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mt-3 mb-3">Manage Your Diet</h4>
+            <a href="/expert/add-diet" class="btn btn-dark">+ Add New Diet</a>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="w-100" id="dataTable">
+                        <thead class="table-bordered">
+                            <tr>
+                                <th>No.</th>
+                                <th>Image</th>
+                                <th>Diet Name</th>
+                                <th>Dataset Name</th>
+                                <th>Age Range</th>
+                                <th>Weight Range</th>
+                                <th>Diet Type</th>
+                                <th>Video Name</th>
+                                <th>Video Link</th>
+                                <th>Diet Plan</th>
+                                <th>Manage</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each diets}}
+                            <tr>
+                                <td>{{incremented @index}}</td>
+                                <td><img src="/images/diet-images/{{this._id}}.png" alt="" style="width: 5rem">
+                                <td>{{this.dietname}}</td>
+                                <td>{{this.dname}}</td>
+                                <td>{{this.dage}}</td>
+                                <td>{{this.dweight}}</td>
+                                <td>{{this.dtype}}</td>
+                                <td>{{this.vname}}</td>
+                                <td><a href="{{this.vlink}}" target="_blank">{{this.vlink}}</a></td>
+                                <td>{{this.dietplan}}</td>
+
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        {{!-- <a href="/expert/edit-diet/{{this._id}}" class="btn btn-dark btn-sm"><i
+                                                class="bi bi-pen"></i></a> --}}
+                                        <a href="/expert/delete-diet/{{this._id}}" class="btn btn-danger btn-sm">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function deleteContent(id, wname) {
+        Swal.fire({
+            title: `Are you sure you want to delete "${wname}"?`,
+            text: '',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#33ff68',
+            cancelButtonColor: '#d29eee',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to the delete route if confirmed
+                window.location.href = `/expert/delete-content/${id}`;
+            }
+        });
+    }
+</script>
