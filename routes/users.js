@@ -21,6 +21,35 @@ router.get("/", async function (req, res, next) {
   });
 });
 
+router.get('/api/search', async(req, res) => {
+  const { dietName, weight, age } = req.query;
+  
+  let filteredDiets =await userHelper.getAllDiets()
+  
+  if (dietName) {
+      filteredDiets = filteredDiets.filter(diet => 
+          diet.dietname.toLowerCase().includes(dietName.toLowerCase())
+      );
+  }
+  
+  if (weight) {
+    filteredDiets = filteredDiets.filter(diet => {
+      const [minWeight, maxWeight] = diet.dweight.split('-').map(Number);
+      const searchAge = Number(weight);
+      return searchAge >= minWeight && searchAge <= maxWeight;
+  });
+  }
+  
+  if (age) {
+      filteredDiets = filteredDiets.filter(diet => {
+          const [minAge, maxAge] = diet.dage.split('-').map(Number);
+          const searchAge = Number(age);
+          return searchAge >= minAge && searchAge <= maxAge;
+      });
+  }
+  res.json(filteredDiets);
+});
+
 router.get("/tips", async function (req, res, next) {
   let user = req.session.user;
   userHelper.getAllTips().then((tips) => {
